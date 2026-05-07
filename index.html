@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据结构与算法学习助手</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+        body { background: #f7f8fa; color: #333; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; }
+        h1 { font-size: 32px; color: #2c3e50; margin-bottom: 10px; }
+        .subtitle { color: #7f8c8d; font-size: 16px; }
+        .menu { display: flex; flex-wrap: wrap; gap: 18px; margin: 30px 0; justify-content: center; }
+        .item { background: #fff; padding: 22px 26px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); width: 230px; text-align: center; cursor: pointer; transition: 0.3s; border: none; }
+        .item:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.12); background: #f0f9ff; }
+        .item.active { background: #e6f4ff; border: 1px solid #2673dd; }
+        .item h3 { font-size: 19px; margin-bottom: 10px; color: #2d7d5a; }
+        .item p { font-size: 15px; color: #666; line-height: 1.5; }
+        .level { display: inline-block; background: #e3f2fd; color: #1976d2; font-size: 13px; padding: 3px 8px; border-radius: 4px; margin-top: 8px; font-weight: 500; }
+        .content { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-top: 20px; min-height: 500px; }
+        .content h2 { margin-bottom: 20px; color: #2c3e50; font-size: 26px; border-left: 4px solid #2673dd; padding-left: 12px; }
+        .content h3 { margin: 25px 0 15px 0; color: #2c3e50; font-size: 22px; }
+        .content h4 { margin: 20px 0 10px 0; color: #34495e; font-size: 18px; }
+        .content p { line-height: 1.9; margin-bottom: 15px; font-size: 15px; }
+        .content ul { padding-left: 30px; line-height: 2; margin-bottom: 25px; font-size: 15px; }
+        .content ol { padding-left: 30px; line-height: 2; margin-bottom: 25px; font-size: 15px; }
+        .knowledge-btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin: 20px 0 25px 0; }
+        .knowledge-btn { background: #f0f7ff; color: #1976d2; border: 1px solid #bbdefb; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 15px; font-weight: 500; }
+        .knowledge-btn:hover { background: #1976d2; color: white; }
+        .btn { display: inline-block; background: #2673dd; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 12px; transition: 0.3s; border: none; cursor: pointer; font-size: 15px; font-weight: 500; }
+        .btn:hover { background: #1d5bb8; }
+        .btn-back { background: #6c757d; margin-right: 15px; }
+        .btn-back:hover { background: #545b62; }
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin: 20px 0; }
+        .code-block { background: #f7f9fc; border-radius: 10px; padding: 20px; margin: 15px 0; overflow-x: auto; font-family: Consolas, monospace; font-size: 14px; line-height: 1.6; color: #2d3748; border: 1px solid #e2e8f0; white-space: pre-wrap; }
+        .mermaid { background: #ffffff !important; border-radius: 12px !important; padding: 30px !important; margin: 25px 0 !important; border: 1px solid #e6e6e6 !important; text-align: center !important; }
+        .info-box { background: #e8f4fd; border-left: 5px solid #2673dd; padding: 18px 20px; border-radius: 6px; margin: 20px 0; line-height: 1.8; }
+        .info-box strong { font-size: 16px; color: #1976d2; }
+        .exam-box { background: #fdf3e7; border-left: 5px solid #ff9800; padding: 18px 20px; border-radius: 6px; margin: 20px 0; line-height: 1.8; }
+        .exam-box strong { font-size: 16px; color: #e65100; }
+        .code-title { margin-top: 20px; margin-bottom: 8px; font-weight: bold; color: #2673dd; font-size: 17px; }
+        footer { text-align: center; padding: 35px 0; color: #999; font-size: 15px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>数据结构与算法学习助手</h1>
+            <p class="subtitle">全知识点教学级讲解 + 高清可加载图解 + C/C++双模板 + 力扣题库</p>
+        </header>
+
+        <div class="menu">
+            <button class="item" onclick="showModule('linear')">
+                <h3>线性结构</h3>
+                <p>顺序表、链表、栈、队列</p>
+                <span class="level">基础必考</span>
+            </button>
+            <button class="item" onclick="showModule('tree')">
+                <h3>树结构</h3>
+                <p>二叉树、BST、堆</p>
+                <span class="level">重点难点</span>
+            </button>
+            <button class="item" onclick="showModule('graph')">
+                <h3>图结构</h3>
+                <p>存储、遍历、最短路径</p>
+                <span class="level">进阶难点</span>
+            </button>
+            <button class="item" onclick="showModule('sort')">
+                <h3>排序算法</h3>
+                <p>7大经典排序</p>
+                <span class="level">高频考点</span>
+            </button>
+            <button class="item" onclick="showModule('search')">
+                <h3>查找算法</h3>
+                <p>二分、哈希表</p>
+                <span class="level">基础高频</span>
+            </button>
+        </div>
+
+        <div class="content" id="show">
+            <h2>欢迎使用数据结构学习助手</h2>
+            <p>所有知识点均配备：<strong>教学级深度讲解 + 可加载高清图解 + 执行步骤拆解 + 复杂度分析 + 易错点提示 + 代码逐行解释</strong>，看完即可完全理解。</p>
+        </div>
+
+        <footer>数据结构与算法学习助手 | 终极教学版</footer>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+
+        function showModule(type) {
+            const content = document.getElementById('show');
+            document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
+            document.querySelector(`[onclick="showModule('${type}')"]`).classList.add('active');
+
+            if(type === 'linear'){
+                content.innerHTML = `
+                <h2>线性结构</h2>
+                <div class="info-box"><strong>核心定义：</strong> 线性结构是n个数据元素的有序序列，元素之间为「一对一」线性关系，分顺序存储和链式存储两类。</div>
+                <h3>知识点入口</h3>
+                <div class="knowledge-btn-group">
+                    <button class="knowledge-btn" onclick="showKnowledge('seqList')">顺序表</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('singleList')">单链表</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('seqStack')">顺序栈</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('cycleQueue')">循环队列</button>
+                </div>
+                <h3>刷题专区</h3>
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/linked-list/" target="_blank" class="btn">链表题库</a>
+                    <a href="https://leetcode.cn/tag/stack/" target="_blank" class="btn">栈题库</a>
+                    <a href="https://leetcode.cn/tag/queue/" target="_blank" class="btn">队列题库</a>
+                </div>`;
+            }
+            else if(type === 'tree'){
+                content.innerHTML = `
+                <h2>树结构</h2>
+                <div class="info-box"><strong>核心定义：</strong> 树是节点间「一对多」层次关系结构，二叉树为最常用形态，每个节点最多有两个子节点。</div>
+                <h3>知识点入口</h3>
+                <div class="knowledge-btn-group">
+                    <button class="knowledge-btn" onclick="showKnowledge('binaryTree')">二叉树与遍历</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('bst')">二叉搜索树BST</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('heap')">大顶堆/小顶堆</button>
+                </div>
+                <h3>刷题专区</h3>
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/tree/" target="_blank" class="btn">二叉树题库</a>
+                    <a href="https://leetcode.cn/tag/heap-priority-queue/" target="_blank" class="btn">堆题库</a>
+                </div>`;
+            }
+            else if(type === 'graph'){
+                content.innerHTML = `
+                <h2>图结构</h2>
+                <div class="info-box"><strong>核心定义：</strong> 图是顶点与边构成的网状结构，元素之间为「多对多」关系，分为有向图和无向图。</div>
+                <h3>知识点入口</h3>
+                <div class="knowledge-btn-group">
+                    <button class="knowledge-btn" onclick="showKnowledge('adjList')">邻接表</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('bfs')">BFS广度优先</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('dfs')">DFS深度优先</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('dijkstra')">Dijkstra最短路径</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('unionFind')">并查集</button>
+                </div>
+                <h3>刷题专区</h3>
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/graph/" target="_blank" class="btn">图题库</a>
+                    <a href="https://leetcode.cn/tag/union-find/" target="_blank" class="btn">并查集题库</a>
+                </div>`;
+            }
+            else if(type === 'sort'){
+                content.innerHTML = `
+                <h2>排序算法</h2>
+                <div class="info-box"><strong>核心定义：</strong> 将无序序列转换为有序序列，评价指标包括时间复杂度、空间复杂度和稳定性。</div>
+                <h3>知识点入口</h3>
+                <div class="knowledge-btn-group">
+                    <button class="knowledge-btn" onclick="showKnowledge('bubble')">冒泡排序</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('insert')">直接插入排序</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('shell')">希尔排序</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('quick')">快速排序</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('merge')">归并排序</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('heapSort')">堆排序</button>
+                </div>
+                <h3>刷题专区</h3>
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+            else if(type === 'search'){
+                content.innerHTML = `
+                <h2>查找算法</h2>
+                <div class="info-box"><strong>核心定义：</strong> 在数据集中定位目标元素，核心评价指标是平均查找长度ASL。</div>
+                <h3>知识点入口</h3>
+                <div class="knowledge-btn-group">
+                    <button class="knowledge-btn" onclick="showKnowledge('binary')">二分查找</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('hashLink')">哈希表拉链法</button>
+                    <button class="knowledge-btn" onclick="showKnowledge('hashOpen')">哈希表开放定址法</button>
+                </div>
+                <h3>刷题专区</h3>
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/binary-search/" target="_blank" class="btn">二分查找题库</a>
+                    <a href="https://leetcode.cn/tag/hash-table/" target="_blank" class="btn">哈希表题库</a>
+                </div>`;
+            }
+        }
+
+        function showKnowledge(key) {
+            const c = document.getElementById('show');
+            let html = `<button class="btn btn-back" onclick="showModule('linear')">← 返回</button><br><br>`;
+
+            // ==================== 线性结构 ====================
+            if(key === 'seqList') {
+                html += `
+                <h2>顺序表</h2>
+                <div class="info-box"><strong>核心定义：</strong> 顺序表是用一段连续的内存空间依次存储线性表元素的存储结构，底层基于数组实现。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph LR
+    A[内存地址1000<br/>元素0] --> B[内存地址1004<br/>元素1]
+    B --> C[内存地址1008<br/>元素2]
+    C --> D[内存地址1012<br/>元素3]
+    D --> E[内存地址1016<br/>元素4]
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li><strong>随机访问</strong>：通过下标可以直接访问任意元素，时间复杂度O(1)</li>
+                    <li><strong>连续存储</strong>：所有元素在内存中连续存放</li>
+                    <li><strong>容量固定</strong>：初始化时需要指定最大容量，无法动态扩容</li>
+                </ul>
+
+                <h3>基本操作与复杂度</h3>
+                <ul>
+                    <li>访问元素：O(1)</li>
+                    <li>插入元素：O(n)（需要移动插入位置后面的所有元素）</li>
+                    <li>删除元素：O(n)（需要移动删除位置后面的所有元素）</li>
+                    <li>查找元素：O(n)（无序）/ O(logn)（有序，二分查找）</li>
+                </ul>
+
+                <h3>优缺点</h3>
+                <ul>
+                    <li>优点：访问速度快，存储密度高，无需额外指针开销</li>
+                    <li>缺点：插入删除效率低，容量固定，容易造成内存浪费</li>
+                </ul>
+
+                <div class="exam-box"><strong>易错点：</strong> 插入和删除时元素移动的方向和次数；数组下标从0开始，而逻辑位置从1开始。</div>
+
+                <div class="code-title">C语言模板（带逐行注释）</div>
+                <div class="code-block">#define MaxSize 100  // 顺序表最大容量
+
+// 顺序表结构定义
+typedef struct {
+    int data[MaxSize];  // 存储元素的数组
+    int length;         // 当前元素个数
+} SqList;
+
+// 初始化顺序表
+void InitList(SqList &L) {
+    L.length = 0;  // 初始长度为0
+}
+
+// 在第i个位置插入元素e（i从1开始）
+bool ListInsert(SqList &L, int i, int e) {
+    // 检查插入位置是否合法
+    if(i < 1 || i > L.length + 1 || L.length >= MaxSize)
+        return false;
+    
+    // 将第i个位置及以后的元素后移一位
+    for(int j = L.length; j >= i; j--)
+        L.data[j] = L.data[j - 1];
+    
+    L.data[i - 1] = e;  // 插入新元素
+    L.length++;         // 长度加1
+    return true;
+}
+
+// 删除第i个位置的元素，并用e返回其值
+bool ListDelete(SqList &L, int i, int &e) {
+    // 检查删除位置是否合法
+    if(i < 1 || i > L.length)
+        return false;
+    
+    e = L.data[i - 1];  // 保存被删除元素
+    
+    // 将第i个位置以后的元素前移一位
+    for(int j = i; j < L.length; j++)
+        L.data[j - 1] = L.data[j];
+    
+    L.length--;  // 长度减1
+    return true;
+}</div>
+
+                <div class="code-title">C++模板（STL vector）</div>
+                <div class="code-block">#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v;  // 创建空vector
+    
+    v.push_back(1);  // 尾部插入元素
+    v.push_back(2);
+    v.push_back(3);
+    
+    v.insert(v.begin() + 1, 4);  // 在第2个位置插入4
+    
+    v.erase(v.begin() + 2);  // 删除第3个元素
+    
+    // 遍历
+    for(int i = 0; i < v.size(); i++)
+        cout << v[i] << " ";
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/array/" target="_blank" class="btn">数组/顺序表题库</a>
+                </div>`;
+            }
+
+            if(key === 'singleList') {
+                html += `
+                <h2>单链表</h2>
+                <div class="info-box"><strong>核心定义：</strong> 单链表是线性表的链式存储结构，每个节点包含数据域和指针域，指针域指向下一个节点，节点在内存中离散存储。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph LR
+    H[虚拟头节点<br/>不存数据] --> A1[节点1<br/>数据:1<br/>next:→]
+    A1 --> A2[节点2<br/>数据:2<br/>next:→]
+    A2 --> A3[节点3<br/>数据:3<br/>next:→]
+    A3 --> NULL[NULL]
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li><strong>离散存储</strong>：节点在内存中可以不连续存放，通过指针连接</li>
+                    <li><strong>顺序访问</strong>：只能从头节点开始依次遍历，无法随机访问</li>
+                    <li><strong>动态扩容</strong>：不需要预先分配容量，需要时再申请节点</li>
+                </ul>
+
+                <h3>基本操作与复杂度</h3>
+                <ul>
+                    <li>访问元素：O(n)（需要从头遍历）</li>
+                    <li>插入元素：O(1)（已知前驱节点时）/ O(n)（需要先查找前驱）</li>
+                    <li>删除元素：O(1)（已知前驱节点时）/ O(n)（需要先查找前驱）</li>
+                    <li>查找元素：O(n)</li>
+                </ul>
+
+                <h3>优缺点</h3>
+                <ul>
+                    <li>优点：插入删除效率高，动态扩容，不会造成内存浪费</li>
+                    <li>缺点：无法随机访问，查找效率低，每个节点有额外的指针开销</li>
+                </ul>
+
+                <div class="exam-box"><strong>高频考点：</strong> 链表反转、链表中环的检测、两个链表的交点、删除倒数第n个节点。</div>
+
+                <div class="code-title">C语言模板（带逐行注释）</div>
+                <div class="code-block">// 单链表节点结构定义
+typedef struct LNode {
+    int data;           // 数据域
+    struct LNode *next; // 指针域，指向下一个节点
+} LNode, *LinkList;
+
+// 头插法创建单链表
+LinkList CreateListHead(int a[], int n) {
+    LinkList L = new LNode;  // 创建头节点
+    L->next = NULL;          // 头节点next初始化为NULL
+    
+    for(int i = 0; i < n; i++) {
+        LNode *s = new LNode;  // 创建新节点
+        s->data = a[i];        // 设置数据
+        s->next = L->next;     // 新节点指向原第一个节点
+        L->next = s;           // 头节点指向新节点
+    }
+    return L;
+}
+
+// 尾插法创建单链表
+LinkList CreateListTail(int a[], int n) {
+    LinkList L = new LNode;
+    L->next = NULL;
+    LNode *r = L;  // r指向尾节点
+    
+    for(int i = 0; i < n; i++) {
+        LNode *s = new LNode;
+        s->data = a[i];
+        s->next = NULL;
+        r->next = s;  // 尾节点指向新节点
+        r = s;        // r更新为新的尾节点
+    }
+    return L;
+}
+
+// 链表反转（高频考点）
+LNode* ReverseList(LinkList L) {
+    LNode *pre = NULL;   // 前驱节点
+    LNode *cur = L->next; // 当前节点
+    
+    while(cur != NULL) {
+        LNode *q = cur->next; // 保存下一个节点
+        cur->next = pre;      // 反转当前节点的指针
+        pre = cur;            // pre后移
+        cur = q;              // cur后移
+    }
+    L->next = pre;  // 头节点指向新的第一个节点
+    return L;
+}</div>
+
+                <div class="code-title">C++模板</div>
+                <div class="code-block">struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+// 链表反转
+ListNode* reverseList(ListNode* head) {
+    ListNode *pre = NULL, *cur = head;
+    while(cur) {
+        ListNode *q = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = q;
+    }
+    return pre;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/linked-list/" target="_blank" class="btn">链表题库</a>
+                </div>`;
+            }
+
+            if(key === 'seqStack') {
+                html += `
+                <h2>顺序栈</h2>
+                <div class="info-box"><strong>核心定义：</strong> 栈是一种操作受限的线性表，只能在一端（栈顶）进行插入和删除操作，遵循"先进后出"（LIFO）原则。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph TD
+    Top[栈顶指针top=2] --> E3[元素3<br/>栈顶]
+    E3 --> E2[元素2]
+    E2 --> E1[元素1<br/>栈底]
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li>只能在栈顶进行插入（入栈）和删除（出栈）操作</li>
+                    <li>先进后出：最后入栈的元素最先出栈</li>
+                    <li>顺序栈用数组实现，栈顶指针指向栈顶元素</li>
+                </ul>
+
+                <h3>基本操作与复杂度</h3>
+                <ul>
+                    <li>入栈（Push）：O(1)</li>
+                    <li>出栈（Pop）：O(1)</li>
+                    <li>取栈顶元素（GetTop）：O(1)</li>
+                    <li>判空（IsEmpty）：O(1)</li>
+                </ul>
+
+                <h3>应用场景</h3>
+                <ul>
+                    <li>表达式求值（如中缀转后缀）</li>
+                    <li>括号匹配</li>
+                    <li>函数调用栈</li>
+                    <li>深度优先搜索（DFS）</li>
+                </ul>
+
+                <div class="exam-box"><strong>易错点：</strong> 栈空和栈满的判断条件；top指针的初始值（通常为-1，表示空栈）。</div>
+
+                <div class="code-title">C语言模板（带逐行注释）</div>
+                <div class="code-block">#define MaxSize 50  // 栈的最大容量
+
+// 顺序栈结构定义
+typedef struct {
+    int data[MaxSize];  // 存储元素的数组
+    int top;            // 栈顶指针，指向栈顶元素
+} SqStack;
+
+// 初始化栈
+void InitStack(SqStack &S) {
+    S.top = -1;  // 栈空时top为-1
+}
+
+// 判断栈是否为空
+bool IsEmpty(SqStack S) {
+    return S.top == -1;
+}
+
+// 入栈操作
+bool Push(SqStack &S, int e) {
+    if(S.top == MaxSize - 1)  // 栈满
+        return false;
+    S.data[++S.top] = e;  // top先加1，再存入元素
+    return true;
+}
+
+// 出栈操作
+bool Pop(SqStack &S, int &e) {
+    if(IsEmpty(S))  // 栈空
+        return false;
+    e = S.data[S.top--];  // 先取出元素，top再减1
+    return true;
+}
+
+// 取栈顶元素
+bool GetTop(SqStack S, int &e) {
+    if(IsEmpty(S))
+        return false;
+    e = S.data[S.top];
+    return true;
+}</div>
+
+                <div class="code-title">C++模板（STL stack）</div>
+                <div class="code-block">#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+    stack<int> st;
+    
+    st.push(1);  // 入栈
+    st.push(2);
+    st.push(3);
+    
+    cout << st.top() << endl;  // 取栈顶元素：3
+    
+    st.pop();  // 出栈
+    cout << st.top() << endl;  // 现在栈顶是2
+    
+    cout << st.size() << endl;  // 栈的大小：2
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/stack/" target="_blank" class="btn">栈题库</a>
+                </div>`;
+            }
+
+            if(key === 'cycleQueue') {
+                html += `
+                <h2>循环队列</h2>
+                <div class="info-box"><strong>核心定义：</strong> 队列是一种操作受限的线性表，只能在队尾插入、队头删除，遵循"先进先出"（FIFO）原则。循环队列用数组实现，解决了普通队列的"假溢出"问题。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph LR
+    subgraph 循环队列
+        E0[元素0] --> E1[元素1]
+        E1 --> E2[元素2]
+        E2 --> E3[元素3]
+        E3 --> E0
+    end
+    Front[队头front=0] --> E0
+    Rear[队尾rear=3] --> E3
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li>队尾插入（入队），队头删除（出队）</li>
+                    <li>先进先出：最先入队的元素最先出队</li>
+                    <li>数组首尾相连形成环形，解决假溢出</li>
+                    <li>牺牲一个位置来区分队空和队满</li>
+                </ul>
+
+                <h3>基本操作与复杂度</h3>
+                <ul>
+                    <li>入队（EnQueue）：O(1)</li>
+                    <li>出队（DeQueue）：O(1)</li>
+                    <li>取队头元素（GetFront）：O(1)</li>
+                    <li>判空（IsEmpty）：O(1)</li>
+                </ul>
+
+                <h3>关键判断条件</h3>
+                <ul>
+                    <li>队空：front == rear</li>
+                    <li>队满：(rear + 1) % MaxSize == front</li>
+                    <li>队列长度：(rear - front + MaxSize) % MaxSize</li>
+                </ul>
+
+                <div class="exam-box"><strong>易错点：</strong> 循环队列的取模运算；队空和队满的判断条件；front和rear指针的移动方式。</div>
+
+                <div class="code-title">C语言模板（带逐行注释）</div>
+                <div class="code-block">#define MaxSize 50  // 队列最大容量
+
+// 循环队列结构定义
+typedef struct {
+    int data[MaxSize];  // 存储元素的数组
+    int front, rear;    // 队头和队尾指针
+} CycleQueue;
+
+// 初始化队列
+void InitQueue(CycleQueue &Q) {
+    Q.front = Q.rear = 0;
+}
+
+// 判断队列是否为空
+bool IsEmpty(CycleQueue Q) {
+    return Q.front == Q.rear;
+}
+
+// 入队操作
+bool EnQueue(CycleQueue &Q, int e) {
+    if((Q.rear + 1) % MaxSize == Q.front)  // 队满
+        return false;
+    Q.data[Q.rear] = e;          // 元素存入队尾
+    Q.rear = (Q.rear + 1) % MaxSize;  // 队尾指针后移
+    return true;
+}
+
+// 出队操作
+bool DeQueue(CycleQueue &Q, int &e) {
+    if(IsEmpty(Q))  // 队空
+        return false;
+    e = Q.data[Q.front];          // 取出队头元素
+    Q.front = (Q.front + 1) % MaxSize;  // 队头指针后移
+    return true;
+}
+
+// 取队头元素
+bool GetFront(CycleQueue Q, int &e) {
+    if(IsEmpty(Q))
+        return false;
+    e = Q.data[Q.front];
+    return true;
+}</div>
+
+                <div class="code-title">C++模板（STL queue）</div>
+                <div class="code-block">#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    queue<int> q;
+    
+    q.push(1);  // 入队
+    q.push(2);
+    q.push(3);
+    
+    cout << q.front() << endl;  // 取队头元素：1
+    
+    q.pop();  // 出队
+    cout << q.front() << endl;  // 现在队头是2
+    
+    cout << q.size() << endl;  // 队列大小：2
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/queue/" target="_blank" class="btn">队列题库</a>
+                </div>`;
+            }
+
+            // ==================== 树结构 ====================
+            if(key === 'binaryTree') {
+                html += `
+                <h2>二叉树与四种遍历</h2>
+                <div class="info-box"><strong>核心定义：</strong> 二叉树是每个节点最多有两个子树的树结构，两个子树分别称为左子树和右子树，次序不能颠倒。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph TD
+    1[根节点1] --> 2[左子树2]
+    1 --> 3[右子树3]
+    2 --> 4[左孩子4]
+    2 --> 5[右孩子5]
+    3 --> 6[左孩子6]
+                </div>
+
+                <h3>四种核心遍历方式</h3>
+                <ul>
+                    <li><strong>前序遍历</strong>：根节点 → 左子树 → 右子树（示例结果：1 2 4 5 3 6）</li>
+                    <li><strong>中序遍历</strong>：左子树 → 根节点 → 右子树（示例结果：4 2 5 1 6 3）</li>
+                    <li><strong>后序遍历</strong>：左子树 → 右子树 → 根节点（示例结果：4 5 2 6 3 1）</li>
+                    <li><strong>层序遍历</strong>：按层次从上到下、从左到右遍历（示例结果：1 2 3 4 5 6）</li>
+                </ul>
+
+                <h3>基本性质</h3>
+                <ul>
+                    <li>第i层最多有2^(i-1)个节点</li>
+                    <li>深度为k的二叉树最多有2^k - 1个节点</li>
+                    <li>叶子节点数 = 度为2的节点数 + 1</li>
+                </ul>
+
+                <div class="exam-box"><strong>高频考点：</strong> 前中后序遍历的递归和迭代实现；根据前序+中序或后序+中序重建二叉树。</div>
+
+                <div class="code-title">C语言模板（递归遍历）</div>
+                <div class="code-block">// 二叉树节点结构定义
+typedef struct BiTNode {
+    int data;               // 数据域
+    struct BiTNode *lchild; // 左孩子指针
+    struct BiTNode *rchild; // 右孩子指针
+} BiTNode, *BiTree;
+
+// 前序遍历
+void PreOrder(BiTree T) {
+    if(T != NULL) {
+        cout << T->data << " ";  // 访问根节点
+        PreOrder(T->lchild);     // 遍历左子树
+        PreOrder(T->rchild);     // 遍历右子树
+    }
+}
+
+// 中序遍历
+void InOrder(BiTree T) {
+    if(T != NULL) {
+        InOrder(T->lchild);      // 遍历左子树
+        cout << T->data << " ";  // 访问根节点
+        InOrder(T->rchild);      // 遍历右子树
+    }
+}
+
+// 后序遍历
+void PostOrder(BiTree T) {
+    if(T != NULL) {
+        PostOrder(T->lchild);    // 遍历左子树
+        PostOrder(T->rchild);    // 遍历右子树
+        cout << T->data << " ";  // 访问根节点
+    }
+}</div>
+
+                <div class="code-title">C++模板（层序遍历）</div>
+                <div class="code-block">#include <iostream>
+#include <queue>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+// 层序遍历
+void levelOrder(TreeNode* root) {
+    if(root == NULL) return;
+    queue<TreeNode*> q;
+    q.push(root);
+    
+    while(!q.empty()) {
+        TreeNode* node = q.front();
+        q.pop();
+        cout << node->val << " ";
+        
+        if(node->left != NULL) q.push(node->left);
+        if(node->right != NULL) q.push(node->right);
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/binary-tree/" target="_blank" class="btn">二叉树题库</a>
+                </div>`;
+            }
+
+            if(key === 'bst') {
+                html += `
+                <h2>二叉搜索树BST</h2>
+                <div class="info-box"><strong>核心定义：</strong> 二叉搜索树（BST）是一种特殊的二叉树，满足：左子树所有节点的值 < 根节点的值 < 右子树所有节点的值。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph TD
+    5[根节点5] --> 3[左子树3]
+    5 --> 7[右子树7]
+    3 --> 2[左孩子2]
+    3 --> 4[右孩子4]
+    7 --> 6[左孩子6]
+    7 --> 8[右孩子8]
+                </div>
+
+                <h3>核心性质</h3>
+                <ul>
+                    <li>左子树所有节点的值 < 根节点的值</li>
+                    <li>右子树所有节点的值 > 根节点的值</li>
+                    <li>中序遍历BST得到升序序列（示例结果：2 3 4 5 6 7 8）</li>
+                </ul>
+
+                <h3>基本操作与复杂度</h3>
+                <ul>
+                    <li>查找：平均O(logn)，最坏O(n)（退化为链表）</li>
+                    <li>插入：平均O(logn)，最坏O(n)</li>
+                    <li>删除：平均O(logn)，最坏O(n)</li>
+                </ul>
+
+                <h3>删除操作的三种情况</h3>
+                <ol>
+                    <li>被删除节点是叶子节点：直接删除</li>
+                    <li>被删除节点只有一个子树：用子树替代该节点</li>
+                    <li>被删除节点有两个子树：用右子树的最小节点（或左子树的最大节点）替代该节点</li>
+                </ol>
+
+                <div class="code-title">C语言模板（查找操作）</div>
+                <div class="code-block">// 递归查找
+BiTree Search(BiTree T, int key) {
+    if(T == NULL || T->data == key)
+        return T;  // 查找成功或树空，返回
+    if(key < T->data)
+        return Search(T->lchild, key);  // 去左子树查找
+    else
+        return Search(T->rchild, key);  // 去右子树查找
+}
+
+// 迭代查找
+BiTree SearchIter(BiTree T, int key) {
+    while(T != NULL && T->data != key) {
+        if(key < T->data)
+            T = T->lchild;
+        else
+            T = T->rchild;
+    }
+    return T;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/binary-search-tree/" target="_blank" class="btn">BST题库</a>
+                </div>`;
+            }
+
+            if(key === 'heap') {
+                html += `
+                <h2>大顶堆/小顶堆</h2>
+                <div class="info-box"><strong>核心定义：</strong> 堆是一种完全二叉树，大顶堆满足父节点的值 ≥ 子节点的值，小顶堆满足父节点的值 ≤ 子节点的值。</div>
+
+                <h3>结构图解（大顶堆）</h3>
+                <div class="mermaid">
+graph TD
+    8[根节点8] --> 7[左子树7]
+    8 --> 5[右子树5]
+    7 --> 6[左孩子6]
+    7 --> 3[右孩子3]
+    5 --> 2[左孩子2]
+    5 --> 4[右孩子4]
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li>堆是完全二叉树，可以用数组顺序存储</li>
+                    <li>大顶堆：堆顶元素是最大值</li>
+                    <li>小顶堆：堆顶元素是最小值</li>
+                    <li>父节点下标i，左孩子2i+1，右孩子2i+2（数组从0开始）</li>
+                </ul>
+
+                <h3>基本操作</h3>
+                <ul>
+                    <li>建堆：将无序数组调整为堆，时间复杂度O(n)</li>
+                    <li>插入：将元素插入到堆尾，然后向上调整，时间复杂度O(logn)</li>
+                    <li>删除堆顶：将堆顶与最后一个元素交换，然后向下调整，时间复杂度O(logn)</li>
+                </ul>
+
+                <h3>应用场景</h3>
+                <ul>
+                    <li>堆排序</li>
+                    <li>优先队列</li>
+                    <li>Top K问题</li>
+                </ul>
+
+                <div class="code-title">C++模板（STL优先队列）</div>
+                <div class="code-block">#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int main() {
+    // 大顶堆（默认）
+    priority_queue<int> maxHeap;
+    maxHeap.push(3);
+    maxHeap.push(1);
+    maxHeap.push(4);
+    cout << maxHeap.top() << endl;  // 输出4
+    
+    // 小顶堆
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    minHeap.push(3);
+    minHeap.push(1);
+    minHeap.push(4);
+    cout << minHeap.top() << endl;  // 输出1
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/heap-priority-queue/" target="_blank" class="btn">堆题库</a>
+                </div>`;
+            }
+
+            // ==================== 图结构 ====================
+            if(key === 'adjList') {
+                html += `
+                <h2>邻接表</h2>
+                <div class="info-box"><strong>核心定义：</strong> 邻接表是图的链式存储结构，由一个顶点数组和多个链表组成，每个顶点对应一个链表，链表中存储该顶点的所有邻接顶点。</div>
+
+                <h3>结构图解（无向图）</h3>
+                <div class="mermaid">
+graph LR
+    subgraph 顶点数组
+        V0[顶点0]
+        V1[顶点1]
+        V2[顶点2]
+        V3[顶点3]
+    end
+    V0 --> E1[顶点1] --> E2[顶点2]
+    V1 --> E0[顶点0] --> E3[顶点3]
+    V2 --> E0[顶点0] --> E3[顶点3]
+    V3 --> E1[顶点1] --> E2[顶点2]
+                </div>
+
+                <h3>核心特性</h3>
+                <ul>
+                    <li>顶点数组存储所有顶点的数据</li>
+                    <li>每个顶点对应一个链表，存储其所有邻接顶点</li>
+                    <li>无向图中，每条边会被存储两次</li>
+                    <li>有向图中，只存储出边</li>
+                </ul>
+
+                <h3>优缺点</h3>
+                <ul>
+                    <li>优点：节省空间，适合稀疏图；添加和删除边效率高</li>
+                    <li>缺点：判断两个顶点之间是否有边需要遍历链表，效率较低</li>
+                </ul>
+
+                <div class="code-title">C++模板（STL实现）</div>
+                <div class="code-block">#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n = 4;  // 顶点数
+    vector<vector<int>> g(n);  // 创建邻接表
+    
+    // 添加边（无向图）
+    g[0].push_back(1);
+    g[1].push_back(0);
+    g[0].push_back(2);
+    g[2].push_back(0);
+    g[1].push_back(3);
+    g[3].push_back(1);
+    g[2].push_back(3);
+    g[3].push_back(2);
+    
+    // 遍历邻接表
+    for(int i = 0; i < n; i++) {
+        cout << "顶点" << i << "的邻接顶点：";
+        for(int v : g[i]) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/graph/" target="_blank" class="btn">图题库</a>
+                </div>`;
+            }
+
+            if(key === 'bfs') {
+                html += `
+                <h2>BFS广度优先遍历</h2>
+                <div class="info-box"><strong>核心定义：</strong> 广度优先遍历（BFS）是图的遍历方式之一，遵循"先广后深"的原则，使用队列实现，逐层向外扩展访问节点。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>访问起始顶点，标记为已访问，将其加入队列</li>
+                    <li>当队列不为空时，取出队首顶点</li>
+                    <li>依次访问该顶点的所有未访问过的邻接顶点</li>
+                    <li>将这些邻接顶点标记为已访问，并加入队列</li>
+                    <li>重复步骤2-4，直到队列为空</li>
+                </ol>
+
+                <h3>核心应用</h3>
+                <ul>
+                    <li>求无权图的最短路径</li>
+                    <li>二叉树的层序遍历</li>
+                    <li>判断图是否连通</li>
+                    <li>拓扑排序</li>
+                </ul>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：邻接矩阵O(n²)，邻接表O(n+e)（n为顶点数，e为边数）</li>
+                    <li>空间复杂度：O(n)（队列空间）</li>
+                </ul>
+
+                <div class="code-title">C++模板（邻接表实现）</div>
+                <div class="code-block">#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+vector<vector<int>> g;  // 邻接表
+vector<bool> vis;       // 标记是否访问过
+
+void bfs(int start) {
+    queue<int> q;
+    q.push(start);
+    vis[start] = true;  // 标记起始节点已访问
+
+    while(!q.empty()) {
+        int u = q.front();  // 取出队首节点
+        q.pop();
+        cout << u << " ";   // 访问节点u
+
+        // 遍历所有邻接节点
+        for(int v : g[u]) {
+            if(!vis[v]) {   // 如果未访问过
+                vis[v] = true;  // 标记为已访问
+                q.push(v);      // 加入队列
+            }
+        }
+    }
+}
+
+int main() {
+    int n = 4;  // 顶点数
+    g.resize(n);
+    vis.resize(n, false);
+    
+    // 添加边
+    g[0].push_back(1); g[1].push_back(0);
+    g[0].push_back(2); g[2].push_back(0);
+    g[1].push_back(3); g[3].push_back(1);
+    
+    cout << "BFS遍历结果：";
+    bfs(0);  // 从顶点0开始遍历
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/breadth-first-search/" target="_blank" class="btn">BFS题库</a>
+                </div>`;
+            }
+
+            if(key === 'dfs') {
+                html += `
+                <h2>DFS深度优先遍历</h2>
+                <div class="info-box"><strong>核心定义：</strong> 深度优先遍历（DFS）是图的遍历方式之一，遵循"先深后广"的原则，使用递归或栈实现，尽可能深地访问图的分支，直到无法继续时再回溯。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>访问起始顶点，并标记为已访问</li>
+                    <li>从该顶点出发，依次访问它的所有未访问过的邻接顶点</li>
+                    <li>对每个邻接顶点，递归地进行深度优先遍历</li>
+                    <li>当所有邻接顶点都访问过了，回溯到上一个顶点</li>
+                </ol>
+
+                <h3>核心应用</h3>
+                <ul>
+                    <li>图的连通性判断</li>
+                    <li>寻找路径</li>
+                    <li>拓扑排序</li>
+                    <li>二叉树的前中后序遍历</li>
+                </ul>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：邻接矩阵O(n²)，邻接表O(n+e)</li>
+                    <li>空间复杂度：O(n)（递归栈空间）</li>
+                </ul>
+
+                <div class="code-title">C++模板（递归实现）</div>
+                <div class="code-block">#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<vector<int>> g;  // 邻接表
+vector<bool> vis;       // 标记是否访问过
+
+void dfs(int u) {
+    vis[u] = true;      // 标记当前节点已访问
+    cout << u << " ";   // 访问节点u
+
+    // 遍历所有邻接节点
+    for(int v : g[u]) {
+        if(!vis[v]) {   // 如果未访问过
+            dfs(v);     // 递归访问
+        }
+    }
+}
+
+int main() {
+    int n = 4;  // 顶点数
+    g.resize(n);
+    vis.resize(n, false);
+    
+    // 添加边
+    g[0].push_back(1); g[1].push_back(0);
+    g[0].push_back(2); g[2].push_back(0);
+    g[1].push_back(3); g[3].push_back(1);
+    
+    cout << "DFS遍历结果：";
+    dfs(0);  // 从顶点0开始遍历
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/depth-first-search/" target="_blank" class="btn">DFS题库</a>
+                </div>`;
+            }
+
+            if(key === 'dijkstra') {
+                html += `
+                <h2>Dijkstra最短路径</h2>
+                <div class="info-box"><strong>核心定义：</strong> Dijkstra算法是求解单源最短路径的经典算法，基于贪心思想，适用于非负权图，能够求出从源点到所有其他顶点的最短路径。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>初始化距离数组dist，dist[s]=0（源点到自己的距离为0），其余为无穷大</li>
+                    <li>使用优先队列存储（距离，顶点）对，优先取出距离最小的顶点</li>
+                    <li>每次取出距离最小的顶点u，标记为已确定最短路径</li>
+                    <li>遍历u的所有邻接顶点v，更新dist[v] = min(dist[v], dist[u] + w)（w为边u→v的权值）</li>
+                    <li>重复步骤3-4，直到队列为空</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：O((n+e)logn)（优先队列优化版本）</li>
+                    <li>空间复杂度：O(n+e)</li>
+                </ul>
+
+                <div class="exam-box"><strong>注意：</strong> Dijkstra算法不能处理有负权边的图，因为贪心策略在负权情况下会失效。</div>
+
+                <div class="code-title">C++模板（优先队列优化）</div>
+                <div class="code-block">#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+const int INF = 0x3f3f3f3f;  // 表示无穷大
+
+vector<pair<int, int>> g[105];  // 邻接表：g[u] = {v, w}
+int dist[105];                  // 距离数组
+
+void dijkstra(int s) {
+    // 小顶堆：{距离, 顶点}
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    
+    fill(dist, dist + 105, INF);  // 初始化距离为无穷大
+    dist[s] = 0;
+    pq.push({0, s});
+
+    while(!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        
+        if(d > dist[u]) continue;  // 跳过旧的、更大的距离
+
+        // 遍历所有邻接边
+        for(auto [v, w] : g[u]) {
+            if(dist[v] > dist[u] + w) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+}
+
+int main() {
+    int n = 3, m = 3;  // 顶点数和边数
+    
+    // 添加边
+    g[1].push_back({2, 2});
+    g[2].push_back({3, 1});
+    g[1].push_back({3, 5});
+    
+    dijkstra(1);  // 从顶点1出发
+    
+    for(int i = 1; i <= n; i++) {
+        cout << "到顶点" << i << "的最短距离：" << dist[i] << endl;
+    }
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/shortest-path/" target="_blank" class="btn">最短路径题库</a>
+                </div>`;
+            }
+
+            if(key === 'unionFind') {
+                html += `
+                <h2>并查集</h2>
+                <div class="info-box"><strong>核心定义：</strong> 并查集是一种用于管理元素所属集合的数据结构，支持两种操作：查找（Find）和合并（Union），能够高效地判断两个元素是否属于同一个集合。</div>
+
+                <h3>核心操作</h3>
+                <ul>
+                    <li><strong>查找（Find）</strong>：查找元素所属的集合（根节点）</li>
+                    <li><strong>合并（Union）</strong>：将两个元素所在的集合合并为一个</li>
+                </ul>
+
+                <h3>优化方法</h3>
+                <ul>
+                    <li><strong>路径压缩</strong>：在查找时，将路径上的所有节点直接指向根节点，减少后续查找的时间</li>
+                    <li><strong>按秩合并</strong>：将高度小的树合并到高度大的树上，避免树退化为链表</li>
+                </ul>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>经过路径压缩和按秩合并后，单次操作的时间复杂度几乎为O(1)</li>
+                    <li>严格来说是阿克曼函数的反函数，增长极其缓慢</li>
+                </ul>
+
+                <h3>应用场景</h3>
+                <ul>
+                    <li>图的连通性判断</li>
+                    <li>最小生成树（Kruskal算法）</li>
+                    <li>朋友圈问题</li>
+                </ul>
+
+                <div class="code-title">C++模板（路径压缩+按秩合并）</div>
+                <div class="code-block">#include <iostream>
+#include <vector>
+using namespace std;
+
+class UnionFind {
+private:
+    vector<int> fa;   // 父节点数组
+    vector<int> rank; // 秩数组（树的高度）
+public:
+    // 初始化
+    UnionFind(int n) {
+        fa.resize(n + 1);
+        rank.resize(n + 1, 1);
+        for(int i = 1; i <= n; i++) {
+            fa[i] = i;  // 初始时每个元素的父节点是自己
+        }
+    }
+
+    // 查找（路径压缩）
+    int find(int x) {
+        if(fa[x] != x) {
+            fa[x] = find(fa[x]);  // 路径压缩
+        }
+        return fa[x];
+    }
+
+    // 合并（按秩合并）
+    void unite(int x, int y) {
+        int fx = find(x);
+        int fy = find(y);
+        if(fx == fy) return;  // 已经在同一个集合
+        
+        // 将高度小的树合并到高度大的树上
+        if(rank[fx] < rank[fy]) {
+            fa[fx] = fy;
+        } else {
+            fa[fy] = fx;
+            if(rank[fx] == rank[fy]) {
+                rank[fx]++;
+            }
+        }
+    }
+
+    // 判断两个元素是否在同一个集合
+    bool isConnected(int x, int y) {
+        return find(x) == find(y);
+    }
+};
+
+int main() {
+    UnionFind uf(5);
+    
+    uf.unite(1, 2);
+    uf.unite(3, 4);
+    uf.unite(2, 3);
+    
+    cout << uf.isConnected(1, 4) << endl;  // 输出1（是）
+    cout << uf.isConnected(1, 5) << endl;  // 输出0（否）
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/union-find/" target="_blank" class="btn">并查集题库</a>
+                </div>`;
+            }
+
+            // ==================== 排序算法 ====================
+            if(key === 'bubble') {
+                html += `
+                <h2>冒泡排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 冒泡排序是最简单的交换排序算法，通过相邻元素的比较和交换，将最大的元素逐步"冒泡"到数组的末尾。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>从数组第一个元素开始，比较相邻的两个元素</li>
+                    <li>如果前一个元素比后一个大，就交换它们的位置</li>
+                    <li>每一轮遍历都会将当前未排序部分的最大元素移动到末尾</li>
+                    <li>重复上述过程，直到整个数组有序</li>
+                </ol>
+
+                <h3>优化点</h3>
+                <p>如果某一轮遍历中没有发生任何交换，说明数组已经有序，可以提前退出循环。</p>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：平均O(n²)，最好O(n)（优化后），最坏O(n²)</li>
+                    <li>空间复杂度：O(1)，原地排序</li>
+                    <li>稳定性：稳定（相同元素不会交换位置）</li>
+                </ul>
+
+                <div class="code-title">C语言模板（优化版）</div>
+                <div class="code-block">void bubbleSort(int a[], int n) {
+    for(int i = 0; i < n - 1; i++) {
+        bool flag = false;  // 标记是否发生交换
+        for(int j = 0; j < n - i - 1; j++) {
+            if(a[j] > a[j + 1]) {
+                // 交换
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+                flag = true;
+            }
+        }
+        if(!flag) break;  // 没有交换，提前退出
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            if(key === 'insert') {
+                html += `
+                <h2>直接插入排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 直接插入排序是一种简单的插入排序算法，将数组分为已排序和未排序两部分，逐个将未排序元素插入到已排序部分的正确位置。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>将第一个元素视为已排序部分</li>
+                    <li>从第二个元素开始，取出当前元素</li>
+                    <li>在已排序部分从后往前找，找到比当前元素小的位置</li>
+                    <li>将该位置后面的元素后移一位，插入当前元素</li>
+                    <li>重复步骤2-4，直到所有元素都插入完毕</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：平均O(n²)，最好O(n)（数组已排序），最坏O(n²)</li>
+                    <li>空间复杂度：O(1)，原地排序</li>
+                    <li>稳定性：稳定</li>
+                </ul>
+
+                <h3>特点</h3>
+                <p>在数组接近有序时效率极高，是希尔排序和快速排序的基础。</p>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">void insertSort(int a[], int n) {
+    for(int i = 1; i < n; i++) {
+        int temp = a[i];  // 保存当前要插入的元素
+        int j = i - 1;
+        
+        // 向前找比temp小的元素
+        while(j >= 0 && a[j] > temp) {
+            a[j + 1] = a[j];  // 元素后移
+            j--;
+        }
+        
+        a[j + 1] = temp;  // 插入到正确位置
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            if(key === 'shell') {
+                html += `
+                <h2>希尔排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 希尔排序又称"缩小增量排序"，是直接插入排序的改进版。它通过将数组分成多个子序列进行插入排序，逐步缩小增量，最后对整个数组进行一次插入排序。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li><strong>分组</strong>：先取一个较大的增量gap，将数组按间隔gap分成多个子序列</li>
+                    <li><strong>组内排序</strong>：对每个子序列分别进行直接插入排序</li>
+                    <li><strong>缩小增量</strong>：将gap减半，重复上述分组和排序过程</li>
+                    <li><strong>最终排序</strong>：当gap=1时，整个数组成为一个子序列，进行最后一次直接插入排序</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：平均O(n^1.3)，最好O(n)，最坏O(n²)（取决于增量序列）</li>
+                    <li>空间复杂度：O(1)，原地排序</li>
+                    <li>稳定性：不稳定（相同元素可能因分组而改变相对顺序）</li>
+                </ul>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">void shellSort(int a[], int n) {
+    // 第一层循环：控制增量gap，从n/2开始，每次减半
+    for(int gap = n / 2; gap > 0; gap /= 2) {
+        // 第二层循环：从gap开始，遍历每个元素
+        for(int i = gap; i < n; i++) {
+            // 保存当前要插入的元素
+            int temp = a[i];
+            int j;
+            // 第三层循环：在当前子序列中进行插入排序
+            for(j = i - gap; j >= 0 && a[j] > temp; j -= gap) {
+                a[j + gap] = a[j];
+            }
+            // 将temp插入到正确位置
+            a[j + gap] = temp;
+        }
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            if(key === 'quick') {
+                html += `
+                <h2>快速排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 快速排序是基于分治思想的排序算法，通过选择一个基准元素，将数组分成两部分，左边比基准小，右边比基准大，然后递归排序左右两部分。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li><strong>选基准</strong>：选择数组中的一个元素作为基准（通常选第一个、最后一个或中间元素）</li>
+                    <li><strong>分区</strong>：将数组中比基准小的元素放到左边，比基准大的放到右边</li>
+                    <li><strong>递归</strong>：递归地对左右两个子数组进行快速排序</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：平均O(nlogn)，最好O(nlogn)，最坏O(n²)（数组已排序时）</li>
+                    <li>空间复杂度：O(logn)（递归栈空间）</li>
+                    <li>稳定性：不稳定</li>
+                </ul>
+
+                <h3>特点</h3>
+                <p>实际应用中最快的排序算法，是大多数编程语言内置排序函数的实现基础。</p>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">// 分区函数
+int partition(int a[], int l, int r) {
+    int pivot = a[l];  // 选第一个元素作为基准
+    while(l < r) {
+        // 从右往左找比基准小的元素
+        while(l < r && a[r] >= pivot) r--;
+        a[l] = a[r];
+        // 从左往右找比基准大的元素
+        while(l < r && a[l] <= pivot) l++;
+        a[r] = a[l];
+    }
+    a[l] = pivot;  // 将基准放到正确位置
+    return l;
+}
+
+// 快速排序
+void quickSort(int a[], int l, int r) {
+    if(l < r) {
+        int p = partition(a, l, r);
+        quickSort(a, l, p - 1);  // 排序左半部分
+        quickSort(a, p + 1, r);  // 排序右半部分
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            if(key === 'merge') {
+                html += `
+                <h2>归并排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 归并排序是基于分治思想的稳定排序算法，将数组拆分成两半，分别排序后再合并成一个有序数组。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li><strong>拆分</strong>：将数组从中间拆分成左右两个子数组</li>
+                    <li><strong>递归</strong>：递归地对左右子数组进行归并排序</li>
+                    <li><strong>合并</strong>：将两个有序的子数组合并成一个有序数组</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：O(nlogn)（最好、最坏、平均都是）</li>
+                    <li>空间复杂度：O(n)（需要额外的临时数组）</li>
+                    <li>稳定性：稳定</li>
+                </ul>
+
+                <h3>特点</h3>
+                <p>唯一的稳定的O(nlogn)排序算法，适合对稳定性有要求的场景。</p>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">// 合并两个有序数组
+void merge(int a[], int l, int mid, int r) {
+    int temp[100];  // 临时数组
+    int i = l, j = mid + 1, k = 0;
+
+    // 合并两个有序数组
+    while(i <= mid && j <= r) {
+        if(a[i] <= a[j]) temp[k++] = a[i++];
+        else temp[k++] = a[j++];
+    }
+
+    // 处理剩余元素
+    while(i <= mid) temp[k++] = a[i++];
+    while(j <= r) temp[k++] = a[j++];
+
+    // 复制回原数组
+    for(i = 0; i < k; i++)
+        a[l + i] = temp[i];
+}
+
+// 归并排序
+void mergeSort(int a[], int l, int r) {
+    if(l < r) {
+        int mid = (l + r) / 2;
+        mergeSort(a, l, mid);      // 排序左半部分
+        mergeSort(a, mid + 1, r);  // 排序右半部分
+        merge(a, l, mid, r);       // 合并
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            if(key === 'heapSort') {
+                html += `
+                <h2>堆排序</h2>
+                <div class="info-box"><strong>核心定义：</strong> 堆排序是利用堆这种数据结构设计的排序算法，分为建堆和排序两个阶段，时间复杂度稳定为O(nlogn)。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li><strong>建堆</strong>：将无序数组构建成大顶堆</li>
+                    <li><strong>交换</strong>：将堆顶元素（最大值）与堆的最后一个元素交换</li>
+                    <li><strong>调整</strong>：将剩余元素重新调整为大顶堆</li>
+                    <li><strong>重复</strong>：重复步骤2-3，直到整个数组有序</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：O(nlogn)（最好、最坏、平均都是）</li>
+                    <li>空间复杂度：O(1)，原地排序</li>
+                    <li>稳定性：不稳定</li>
+                </ul>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">// 调整堆
+void adjustHeap(int a[], int i, int n) {
+    int max = i;  // 最大值下标
+    int l = 2 * i + 1;  // 左孩子下标
+    int r = 2 * i + 2;  // 右孩子下标
+
+    // 找到最大值的下标
+    if(l < n && a[l] > a[max]) max = l;
+    if(r < n && a[r] > a[max]) max = r;
+
+    // 如果最大值不是当前节点，交换并继续调整
+    if(max != i) {
+        int temp = a[i];
+        a[i] = a[max];
+        a[max] = temp;
+        adjustHeap(a, max, n);
+    }
+}
+
+// 堆排序
+void heapSort(int a[], int n) {
+    // 1. 建大顶堆
+    for(int i = n / 2 - 1; i >= 0; i--)
+        adjustHeap(a, i, n);
+
+    // 2. 排序
+    for(int i = n - 1; i > 0; i--) {
+        // 交换堆顶和最后一个元素
+        int temp = a[0];
+        a[0] = a[i];
+        a[i] = temp;
+        // 调整剩余元素为大顶堆
+        adjustHeap(a, 0, i);
+    }
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/sorting/" target="_blank" class="btn">排序题库</a>
+                </div>`;
+            }
+
+            // ==================== 查找算法 ====================
+            if(key === 'binary') {
+                html += `
+                <h2>二分查找</h2>
+                <div class="info-box"><strong>核心定义：</strong> 二分查找又称折半查找，是针对有序顺序表的高效查找算法，每次比较都能将查找范围缩小一半。</div>
+
+                <h3>算法思想详解</h3>
+                <ol>
+                    <li>初始化左指针l=0，右指针r=n-1</li>
+                    <li>计算中间位置mid=(l+r)/2</li>
+                    <li>比较a[mid]与目标值key：
+                        <ul>
+                            <li>如果a[mid] == key，查找成功，返回mid</li>
+                            <li>如果a[mid] < key，说明key在右半部分，l=mid+1</li>
+                            <li>如果a[mid] > key，说明key在左半部分，r=mid-1</li>
+                        </ul>
+                    </li>
+                    <li>重复步骤2-3，直到找到或l>r</li>
+                </ol>
+
+                <h3>复杂度分析</h3>
+                <ul>
+                    <li>时间复杂度：O(logn)</li>
+                    <li>空间复杂度：O(1)</li>
+                </ul>
+
+                <h3>前提条件</h3>
+                <p>必须是有序的顺序表（数组），链表无法使用二分查找。</p>
+
+                <div class="code-title">C语言模板</div>
+                <div class="code-block">// 二分查找（非递归）
+int binarySearch(int a[], int n, int key) {
+    int l = 0, r = n - 1;
+    while(l <= r) {
+        int mid = (l + r) / 2;
+        if(a[mid] == key) {
+            return mid;  // 查找成功
+        } else if(a[mid] < key) {
+            l = mid + 1;  // 去右半部分找
+        } else {
+            r = mid - 1;  // 去左半部分找
+        }
+    }
+    return -1;  // 查找失败
+}</div>
+
+                <div class="code-title">C++模板（STL）</div>
+                <div class="code-block">#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v = {1, 3, 5, 7, 9, 11};
+    
+    // 使用STL的binary_search
+    bool found = binary_search(v.begin(), v.end(), 7);
+    cout << found << endl;  // 输出1（找到）
+    
+    // 使用STL的lower_bound找第一个>=目标的位置
+    auto it = lower_bound(v.begin(), v.end(), 6);
+    cout << it - v.begin() << endl;  // 输出3
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/binary-search/" target="_blank" class="btn">二分查找题库</a>
+                </div>`;
+            }
+
+            if(key === 'hashLink') {
+                html += `
+                <h2>哈希表拉链法</h2>
+                <div class="info-box"><strong>核心定义：</strong> 拉链法是解决哈希冲突的常用方法，将哈希值相同的元素用链表连接起来，每个哈希桶对应一个链表。</div>
+
+                <h3>结构图解</h3>
+                <div class="mermaid">
+graph LR
+    subgraph 哈希桶数组
+        B0[桶0]
+        B1[桶1]
+        B2[桶2]
+        B3[桶3]
+    end
+    B0 --> N1[键值对1] --> N5[键值对5]
+    B1 --> N2[键值对2]
+    B2 --> N3[键值对3] --> N7[键值对7]
+    B3 --> N4[键值对4]
+                </div>
+
+                <h3>核心原理</h3>
+                <ul>
+                    <li>通过哈希函数将关键字映射到数组下标</li>
+                    <li>如果发生冲突，将新节点插入到对应链表中</li>
+                    <li>查找时先计算哈希值，再遍历对应链表</li>
+                </ul>
+
+                <h3>优缺点</h3>
+                <ul>
+                    <li>优点：处理冲突简单，无堆积现象，删除节点方便</li>
+                    <li>缺点：需要额外的指针空间，缓存不友好</li>
+                </ul>
+
+                <div class="code-title">C++模板（手写实现）</div>
+                <div class="code-block">#include <iostream>
+#include <list>
+#include <vector>
+using namespace std;
+
+class HashTable {
+private:
+    vector<list<pair<int, int>>> table;
+    int size;
+    int hash(int key) { return key % size; }  // 简单的取模哈希函数
+public:
+    HashTable(int s) : size(s) { table.resize(size); }
+    
+    // 插入键值对
+    void insert(int key, int value) {
+        int idx = hash(key);
+        // 先查找是否已存在该key
+        for(auto& p : table[idx]) {
+            if(p.first == key) {
+                p.second = value;  // 更新value
+                return;
+            }
+        }
+        table[idx].push_back({key, value});  // 插入新节点
+    }
+    
+    // 查找key对应的value
+    int find(int key) {
+        int idx = hash(key);
+        for(auto& p : table[idx]) {
+            if(p.first == key) return p.second;
+        }
+        return -1;  // 未找到
+    }
+    
+    // 删除key
+    void remove(int key) {
+        int idx = hash(key);
+        for(auto it = table[idx].begin(); it != table[idx].end(); it++) {
+            if(it->first == key) {
+                table[idx].erase(it);
+                return;
+            }
+        }
+    }
+};
+
+int main() {
+    HashTable ht(10);
+    ht.insert(1, 100);
+    ht.insert(2, 200);
+    ht.insert(11, 1100);  // 11%10=1，会和key=1在同一个桶
+    
+    cout << ht.find(1) << endl;   // 输出100
+    cout << ht.find(11) << endl;  // 输出1100
+    
+    ht.remove(1);
+    cout << ht.find(1) << endl;   // 输出-1
+    
+    return 0;
+}</div>
+
+                <div class="code-title">C++模板（STL unordered_map）</div>
+                <div class="code-block">#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+int main() {
+    unordered_map<int, int> mp;
+    
+    mp[1] = 100;  // 插入
+    mp[2] = 200;
+    mp[1] = 111;  // 更新
+    
+    cout << mp[1] << endl;  // 访问
+    
+    if(mp.count(2)) {  // 判断是否存在
+        cout << mp[2] << endl;
+    }
+    
+    mp.erase(1);  // 删除
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/hash-table/" target="_blank" class="btn">哈希表题库</a>
+                </div>`;
+            }
+
+            if(key === 'hashOpen') {
+                html += `
+                <h2>哈希表开放定址法</h2>
+                <div class="info-box"><strong>核心定义：</strong> 开放定址法是解决哈希冲突的另一种方法，当发生冲突时，按某种规则在哈希表中寻找下一个空闲位置，不使用链表。</div>
+
+                <h3>常见探测方法</h3>
+                <ul>
+                    <li><strong>线性探测</strong>：依次往后找，步长为1</li>
+                    <li><strong>二次探测</strong>：按平方步长找，如1², -1², 2², -2²...</li>
+                    <li><strong>伪随机探测</strong>：按伪随机序列找</li>
+                </ul>
+
+                <h3>核心原理</h3>
+                <ul>
+                    <li>通过哈希函数计算初始位置</li>
+                    <li>如果该位置已被占用，按探测规则找下一个位置</li>
+                    <li>直到找到空闲位置或遍历完整个表</li>
+                </ul>
+
+                <h3>优缺点</h3>
+                <ul>
+                    <li>优点：不需要额外指针，缓存友好</li>
+                    <li>缺点：容易产生堆积现象，删除节点复杂</li>
+                </ul>
+
+                <div class="code-title">C++模板（线性探测实现）</div>
+                <div class="code-block">#include <iostream>
+#include <vector>
+using namespace std;
+
+class HashTable {
+private:
+    vector<int> table;
+    vector<bool> occupied;
+    int size;
+    int hash(int key) { return key % size; }
+public:
+    HashTable(int s) : size(s) {
+        table.resize(size, -1);
+        occupied.resize(size, false);
+    }
+    
+    // 插入
+    void insert(int key) {
+        int idx = hash(key);
+        int count = 0;
+        // 线性探测找空闲位置
+        while(occupied[idx] && count < size) {
+            idx = (idx + 1) % size;
+            count++;
+        }
+        if(count < size) {
+            table[idx] = key;
+            occupied[idx] = true;
+        }
+    }
+    
+    // 查找
+    bool find(int key) {
+        int idx = hash(key);
+        int count = 0;
+        while(occupied[idx] && count < size) {
+            if(table[idx] == key) return true;
+            idx = (idx + 1) % size;
+            count++;
+        }
+        return false;
+    }
+    
+    // 删除（懒惰删除，只标记）
+    void remove(int key) {
+        int idx = hash(key);
+        int count = 0;
+        while(occupied[idx] && count < size) {
+            if(table[idx] == key) {
+                occupied[idx] = false;
+                return;
+            }
+            idx = (idx + 1) % size;
+            count++;
+        }
+    }
+};
+
+int main() {
+    HashTable ht(10);
+    ht.insert(1);
+    ht.insert(11);  // 11%10=1，冲突，线性探测到下一个位置
+    ht.insert(21);  // 21%10=1，继续探测
+    
+    cout << ht.find(1) << endl;   // 输出1
+    cout << ht.find(11) << endl;  // 输出1
+    cout << ht.find(31) << endl;  // 输出0
+    
+    ht.remove(1);
+    cout << ht.find(1) << endl;   // 输出0
+    
+    return 0;
+}</div>
+
+                <div class="btn-group">
+                    <a href="https://leetcode.cn/tag/hash-table/" target="_blank" class="btn">哈希表题库</a>
+                </div>`;
+            }
+
+            c.innerHTML = html;
+            mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        }
+    </script>
+</body>
+</html>
